@@ -45,46 +45,76 @@ class _MyHomePageState extends State<MyHomePage> {
           floating: true,
           title: Padding(
             padding: const EdgeInsets.only(bottom: 700, left: 700),
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50.0),
-                  color: Colors.white),
-              width: 516,
-              height: 50,
-              child: Row(
-                children: <Widget>[
-                  new Flexible(
-                    child: new TextField(
-                        decoration: InputDecoration(
-                            border:
-                                OutlineInputBorder(borderSide: BorderSide.none),
-                            hintText: 'Search by name',
-                            contentPadding: EdgeInsets.all(20))),
-                  ),
-                  const VerticalDivider(
-                      width: 20,
-                      thickness: 1,
-                      indent: 10,
-                      endIndent: 10,
-                      color: Colors.grey),
-                  new Flexible(
-                    child: new TextField(
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.location_pin),
-                            border:
-                                OutlineInputBorder(borderSide: BorderSide.none),
-                            hintText: 'Search for something',
-                            contentPadding: EdgeInsets.only(left: 50))),
-                  ),
-                  IconButton(
-                      icon: Icon(
-                        Icons.search,
-                        color: Color.fromARGB(255, 188, 19, 149),
+            child: Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50.0),
+                      color: Colors.white),
+                  width: 516,
+                  height: 50,
+                  child: Row(
+                    children: <Widget>[
+                      new Flexible(
+                        child: new TextField(
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none),
+                                hintText: 'Search by name',
+                                contentPadding: EdgeInsets.all(20))),
                       ),
-                      iconSize: 24.0,
-                      onPressed: () {})
-                ],
-              ),
+                      const VerticalDivider(
+                          width: 20,
+                          thickness: 1,
+                          indent: 10,
+                          endIndent: 10,
+                          color: Colors.grey),
+                      new Flexible(
+                        child: new TextField(
+                            decoration: InputDecoration(
+                                prefixIcon: Icon(Icons.location_pin),
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none),
+                                hintText: 'Search for something',
+                                contentPadding: EdgeInsets.only(left: 50))),
+                      ),
+                      IconButton(
+                          icon: Icon(
+                            Icons.search,
+                            color: Color.fromARGB(255, 188, 19, 149),
+                          ),
+                          iconSize: 24.0,
+                          onPressed: () {})
+                    ],
+                  ),
+                ),
+                ButtonBar(
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                            side: BorderSide(width: 3, color: Colors.black),
+                          ),
+                        ),
+                      ),
+                      child: Text("For Bussiness"),
+                    )
+                  ],
+                ),
+                ButtonBar(
+                  children: <Widget>[
+                    ElevatedButton(onPressed: () {}, child: Text("Log In"))
+                  ],
+                ),
+                ButtonBar(
+                  children: <Widget>[
+                    ElevatedButton(onPressed: () {}, child: Text("Sign Up"))
+                  ],
+                ),
+              ],
             ),
           ),
         ),
