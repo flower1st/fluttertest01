@@ -306,162 +306,168 @@ class _MyHomePageState extends State<MyHomePage> {
             width: double.infinity,
             child: Column(
               children: [
-                SizedBox(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Stack(
-                        children: <Widget>[
-                          Container(
-                            width: 350,
-                            height: 350,
-                            child: ClipRRect(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(20),
+                      child: Center(
+                        child: SizedBox(
+                          height: 350,
+                          width: 350,
+                          child: Card(
+                            elevation: 10,
+                            color: const Color.fromARGB(255, 223, 219, 207),
+                            child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: Image.asset("images/banner1.png"),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 170),
+                                    child: SizedBox(
+                                      child: ElevatedButton(
+                                        onPressed: () {},
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStateProperty.all<Color>(
+                                                  Color(0XFFD3427A)),
+                                          padding: MaterialStateProperty.all<
+                                              EdgeInsets>(EdgeInsets.all(26)),
+                                          shape: MaterialStateProperty.all(
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                              side: BorderSide(
+                                                  width: 1,
+                                                  color: Color(0XFFD3427A)),
+                                            ),
+                                          ),
+                                        ),
+                                        child: Text("Book Now"),
+                                      ),
+                                    ),
+                                  ),
+                                ]),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 20),
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                          width: 350,
+                          height: 350,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              "images/banner1.png",
+                              alignment: Alignment.topCenter,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Color(0XFFD3427A)),
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.all(26)),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  side: BorderSide(
+                                      width: 1, color: Color(0XFFD3427A)),
+                                ),
+                              ),
+                            ),
+                            child: Text("Book Now"),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Stack(
+                      children: <Widget>[
+                        Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color: Color.fromARGB(255, 228, 230, 223)),
+                            ),
+                            ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
                               child: Image.asset(
                                 "images/banner1.png",
+                                width: 350,
+                                height: 350,
                                 alignment: Alignment.topCenter,
-                                fit: BoxFit.fill,
+                                fit: BoxFit.contain,
                               ),
                             ),
+                          ],
+                        ),
+                        Positioned(
+                          left: 15,
+                          top: 280,
+                          child: Image(
+                              width: 30,
+                              height: 30,
+                              image: AssetImage("images/distance2.png")),
+                        ),
+                        Positioned(
+                          left: 15,
+                          top: 280,
+                          child: Text(
+                            "Hello World",
+                            style: TextStyle(backgroundColor: Colors.white),
                           ),
-                          SizedBox(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Color(0XFFD3427A)),
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                    EdgeInsets.all(26)),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    side: BorderSide(
-                                        width: 1, color: Color(0XFFD3427A)),
-                                  ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 20),
+                    Stack(
+                      children: <Widget>[
+                        Container(
+                          width: 350,
+                          height: 350,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.asset(
+                              "images/banner1.png",
+                              alignment: Alignment.topCenter,
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Color(0XFFD3427A)),
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.all(26)),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                  side: BorderSide(
+                                      width: 1, color: Color(0XFFD3427A)),
                                 ),
                               ),
-                              child: Text("Book Now"),
                             ),
+                            child: Text("Book Now"),
                           ),
-                        ],
-                      ),
-                      SizedBox(width: 20),
-                      Stack(
-                        children: <Widget>[
-                          Container(
-                            width: 350,
-                            height: 350,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.asset(
-                                "images/banner1.png",
-                                alignment: Alignment.topCenter,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Color(0XFFD3427A)),
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                    EdgeInsets.all(26)),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    side: BorderSide(
-                                        width: 1, color: Color(0XFFD3427A)),
-                                  ),
-                                ),
-                              ),
-                              child: Text("Book Now"),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 20),
-                      Stack(
-                        children: <Widget>[
-                          Column(
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    color: Color.fromARGB(255, 228, 230, 223)),
-                              ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8.0),
-                                child: Image.asset(
-                                  "images/banner1.png",
-                                  width: 350,
-                                  height: 350,
-                                  alignment: Alignment.topCenter,
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Positioned(
-                            left: 15,
-                            top: 280,
-                            child: Image(
-                                width: 30,
-                                height: 30,
-                                image: AssetImage("images/distance2.png")),
-                          ),
-                          Positioned(
-                            left: 15,
-                            top: 280,
-                            child: Text(
-                              "Hello World",
-                              style: TextStyle(backgroundColor: Colors.white),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(width: 20),
-                      Stack(
-                        children: <Widget>[
-                          Container(
-                            width: 350,
-                            height: 350,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.asset(
-                                "images/banner1.png",
-                                alignment: Alignment.topCenter,
-                                fit: BoxFit.fill,
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Color(0XFFD3427A)),
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                    EdgeInsets.all(26)),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                    side: BorderSide(
-                                        width: 1, color: Color(0XFFD3427A)),
-                                  ),
-                                ),
-                              ),
-                              child: Text("Book Now"),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
                 SizedBox(
                   child: Row(
