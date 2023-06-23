@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, sort_child_properties_last, unnecessary_new, avoid_unnecessary_containers, unrelated_type_equality_checks, avoid_print, sized_box_for_whitespace
 
+// ignore: unused_import
+//import 'dart:js_interop';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -21,8 +25,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-final containerKey = GlobalKey();
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
@@ -31,7 +33,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  double rating = 4.5;
+  bool isHover = false;
   int currentIndex = 0;
+  double sideLength = 50;
   final List<String> imagePaths = [
     'images/homepage.png',
     'images/homepage.png',
@@ -305,212 +310,992 @@ class _MyHomePageState extends State<MyHomePage> {
           child: SizedBox(
             width: double.infinity,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Center(
-                        child: SizedBox(
-                          height: 350,
-                          width: 350,
-                          child: Card(
-                            elevation: 10,
-                            color: const Color.fromARGB(255, 223, 219, 207),
-                            child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Image.asset("images/banner1.png"),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 170),
-                                    child: SizedBox(
-                                      child: ElevatedButton(
-                                        onPressed: () {},
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all<Color>(
-                                                  Color(0XFFD3427A)),
-                                          padding: MaterialStateProperty.all<
-                                              EdgeInsets>(EdgeInsets.all(26)),
-                                          shape: MaterialStateProperty.all(
-                                            RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              side: BorderSide(
-                                                  width: 1,
-                                                  color: Color(0XFFD3427A)),
-                                            ),
-                                          ),
+                  children: [
+                    SizedBox(width: 20),
+                    InkWell(
+                      onTap: () {},
+                      child: MouseRegion(
+                        onHover: (f) {
+                          setState(() {
+                            isHover = true;
+                          });
+                        },
+                        onExit: (f) {
+                          setState(() {
+                            isHover = false;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: isHover ? Colors.pink : Colors.grey),
+                          ),
+                          duration: Duration(milliseconds: 600),
+                          width: isHover ? 350 : 350,
+                          height: isHover ? 430 : 430,
+                          child: Stack(
+                            children: [
+                              Container(
+                                  width: 350,
+                                  height: 430,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color.fromARGB(255, 230, 224, 224),
+                                  )),
+                              Container(
+                                width: 350,
+                                height: 210,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  image: DecorationImage(
+                                      alignment: Alignment.topCenter,
+                                      image: AssetImage(
+                                        "images/banner1.png",
+                                      ),
+                                      fit: BoxFit.fitWidth),
+                                ),
+                              ),
+                              Positioned(
+                                left: 20,
+                                top: 230,
+                                child: Row(
+                                  children: [
+                                    Positioned(
+                                      child: CircleAvatar(
+                                        radius: 25,
+                                        backgroundImage:
+                                            AssetImage("images/customer1.png"),
+                                      ),
+                                    ),
+                                    SizedBox(width: 20),
+                                    Positioned(
+                                      child: Text.rich(TextSpan(children: [
+                                        TextSpan(
+                                            text: 'Lathersalonaspen\n',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  wordSpacing: 10,
+                                                  letterSpacing: 1),
+                                            )),
+                                        WidgetSpan(
+                                          alignment:
+                                              PlaceholderAlignment.middle,
+                                          child: RatingBar.builder(
+                                              itemSize: 25,
+                                              minRating: 1,
+                                              itemCount: 1,
+                                              itemBuilder: (context, _) => Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber),
+                                              onRatingUpdate: (rating) =>
+                                                  setState(() {
+                                                    this.rating = rating;
+                                                  })),
                                         ),
-                                        child: Text("Book Now"),
+                                        TextSpan(
+                                            text: '4.5',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  letterSpacing: 1),
+                                            )),
+                                        TextSpan(
+                                            text: '\t(1200)',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15, wordSpacing: 1),
+                                            )),
+                                      ])),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                  right: 25,
+                                  bottom: 75,
+                                  child: Text.rich(TextSpan(children: [
+                                    TextSpan(
+                                        text:
+                                            'Lorem Ipsum is simply dummy text\nof '
+                                            'the printing  typesetting industry.\n',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                            letterSpacing: 1,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        )),
+                                  ]))),
+                              Positioned(
+                                  left: 15,
+                                  bottom: 20,
+                                  child: Text.rich(TextSpan(children: [
+                                    WidgetSpan(
+                                      child: Image.asset(
+                                          width: 20,
+                                          height: 20,
+                                          "images/distance2.png"),
+                                    ),
+                                    TextSpan(
+                                        text: '\t5 miles ',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                              color: Color(0XFF333333),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              wordSpacing: 1),
+                                        )),
+                                    TextSpan(
+                                        text: 'drive',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                              color: Color(0XFF777777),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              wordSpacing: 1),
+                                        )),
+                                  ]))),
+                              Positioned(
+                                right: 20,
+                                bottom: 20,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  onHover: (isHover) {},
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(isHover
+                                            ? Colors.pink
+                                            : Color.fromARGB(
+                                                255, 248, 248, 248)),
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(25)),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        side: BorderSide(
+                                            width: 1,
+                                            color: isHover
+                                                ? Colors.pink
+                                                : Colors.black),
                                       ),
                                     ),
                                   ),
-                                ]),
+                                  child: Text(
+                                    "Book Now",
+                                    style: TextStyle(
+                                        color: isHover
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: MouseRegion(
+                        onHover: (f) {
+                          setState(() {
+                            isHover = true;
+                          });
+                        },
+                        onExit: (f) {
+                          setState(() {
+                            isHover = false;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: isHover ? Colors.pink : Colors.grey),
+                          ),
+                          duration: Duration(milliseconds: 600),
+                          width: isHover ? 350 : 350,
+                          height: isHover ? 430 : 430,
+                          child: Stack(
+                            children: [
+                              Container(
+                                  width: 350,
+                                  height: 430,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color.fromARGB(255, 230, 224, 224),
+                                  )),
+                              Container(
+                                width: 350,
+                                height: 210,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  image: DecorationImage(
+                                      alignment: Alignment.topCenter,
+                                      image: AssetImage(
+                                        "images/banner1.png",
+                                      ),
+                                      fit: BoxFit.fitWidth),
+                                ),
+                              ),
+                              Positioned(
+                                left: 20,
+                                top: 230,
+                                child: Row(
+                                  children: [
+                                    Positioned(
+                                      child: CircleAvatar(
+                                        radius: 25,
+                                        backgroundImage:
+                                            AssetImage("images/customer1.png"),
+                                      ),
+                                    ),
+                                    SizedBox(width: 20),
+                                    Positioned(
+                                      child: Text.rich(TextSpan(children: [
+                                        TextSpan(
+                                            text: 'Lathersalonaspen\n',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  wordSpacing: 10,
+                                                  letterSpacing: 1),
+                                            )),
+                                        WidgetSpan(
+                                          alignment:
+                                              PlaceholderAlignment.middle,
+                                          child: RatingBar.builder(
+                                              itemSize: 25,
+                                              minRating: 1,
+                                              itemCount: 1,
+                                              itemBuilder: (context, _) => Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber),
+                                              onRatingUpdate: (rating) =>
+                                                  setState(() {
+                                                    this.rating = rating;
+                                                  })),
+                                        ),
+                                        TextSpan(
+                                            text: '4.5',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  letterSpacing: 1),
+                                            )),
+                                        TextSpan(
+                                            text: '\t(1200)',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15, wordSpacing: 1),
+                                            )),
+                                      ])),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                  right: 25,
+                                  bottom: 75,
+                                  child: Text.rich(TextSpan(children: [
+                                    TextSpan(
+                                        text:
+                                            'Lorem Ipsum is simply dummy text\nof '
+                                            'the printing  typesetting industry.\n',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                            letterSpacing: 1,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        )),
+                                  ]))),
+                              Positioned(
+                                  left: 15,
+                                  bottom: 20,
+                                  child: Text.rich(TextSpan(children: [
+                                    WidgetSpan(
+                                      child: Image.asset(
+                                          width: 20,
+                                          height: 20,
+                                          "images/distance2.png"),
+                                    ),
+                                    TextSpan(
+                                        text: '\t5 miles ',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                              color: Color(0XFF333333),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              wordSpacing: 1),
+                                        )),
+                                    TextSpan(
+                                        text: 'drive',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                              color: Color(0XFF777777),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              wordSpacing: 1),
+                                        )),
+                                  ]))),
+                              Positioned(
+                                right: 20,
+                                bottom: 20,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  onHover: (isHover) {},
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(isHover
+                                            ? Colors.pink
+                                            : Color.fromARGB(
+                                                255, 248, 248, 248)),
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(25)),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        side: BorderSide(
+                                            width: 1,
+                                            color: isHover
+                                                ? Colors.pink
+                                                : Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "Book Now",
+                                    style: TextStyle(
+                                        color: isHover
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
                     SizedBox(width: 20),
-                    Stack(
-                      children: <Widget>[
-                        Container(
-                          width: 350,
-                          height: 350,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.asset(
-                              "images/banner1.png",
-                              alignment: Alignment.topCenter,
-                              fit: BoxFit.fill,
-                            ),
+                    InkWell(
+                      onTap: () {},
+                      child: MouseRegion(
+                        onHover: (f) {
+                          setState(() {
+                            isHover = true;
+                          });
+                        },
+                        onExit: (f) {
+                          setState(() {
+                            isHover = false;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: isHover ? Colors.pink : Colors.grey),
                           ),
-                        ),
-                        SizedBox(
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color(0XFFD3427A)),
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.all(26)),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  side: BorderSide(
-                                      width: 1, color: Color(0XFFD3427A)),
-                                ),
-                              ),
-                            ),
-                            child: Text("Book Now"),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    Stack(
-                      children: <Widget>[
-                        Column(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Color.fromARGB(255, 228, 230, 223)),
-                            ),
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.asset(
-                                "images/banner1.png",
+                          duration: Duration(milliseconds: 600),
+                          width: isHover ? 350 : 350,
+                          height: isHover ? 430 : 430,
+                          child: Stack(
+                            children: [
+                              Container(
+                                  width: 350,
+                                  height: 430,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color.fromARGB(255, 230, 224, 224),
+                                  )),
+                              Container(
                                 width: 350,
-                                height: 350,
-                                alignment: Alignment.topCenter,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Positioned(
-                          left: 15,
-                          top: 280,
-                          child: Image(
-                              width: 30,
-                              height: 30,
-                              image: AssetImage("images/distance2.png")),
-                        ),
-                        Positioned(
-                          left: 15,
-                          top: 280,
-                          child: Text(
-                            "Hello World",
-                            style: TextStyle(backgroundColor: Colors.white),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 20),
-                    Stack(
-                      children: <Widget>[
-                        Container(
-                          width: 350,
-                          height: 350,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.asset(
-                              "images/banner1.png",
-                              alignment: Alignment.topCenter,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Color(0XFFD3427A)),
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.all(26)),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  side: BorderSide(
-                                      width: 1, color: Color(0XFFD3427A)),
+                                height: 210,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  image: DecorationImage(
+                                      alignment: Alignment.topCenter,
+                                      image: AssetImage(
+                                        "images/banner1.png",
+                                      ),
+                                      fit: BoxFit.fitWidth),
                                 ),
                               ),
-                            ),
-                            child: Text("Book Now"),
+                              Positioned(
+                                left: 20,
+                                top: 230,
+                                child: Row(
+                                  children: [
+                                    Positioned(
+                                      child: CircleAvatar(
+                                        radius: 25,
+                                        backgroundImage:
+                                            AssetImage("images/customer1.png"),
+                                      ),
+                                    ),
+                                    SizedBox(width: 20),
+                                    Positioned(
+                                      child: Text.rich(TextSpan(children: [
+                                        TextSpan(
+                                            text: 'Lathersalonaspen\n',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  wordSpacing: 10,
+                                                  letterSpacing: 1),
+                                            )),
+                                        WidgetSpan(
+                                          alignment:
+                                              PlaceholderAlignment.middle,
+                                          child: RatingBar.builder(
+                                              itemSize: 25,
+                                              minRating: 1,
+                                              itemCount: 1,
+                                              itemBuilder: (context, _) => Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber),
+                                              onRatingUpdate: (rating) =>
+                                                  setState(() {
+                                                    this.rating = rating;
+                                                  })),
+                                        ),
+                                        TextSpan(
+                                            text: '4.5',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  letterSpacing: 1),
+                                            )),
+                                        TextSpan(
+                                            text: '\t(1200)',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15, wordSpacing: 1),
+                                            )),
+                                      ])),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                  right: 25,
+                                  bottom: 75,
+                                  child: Text.rich(TextSpan(children: [
+                                    TextSpan(
+                                        text:
+                                            'Lorem Ipsum is simply dummy text\nof '
+                                            'the printing  typesetting industry.\n',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                            letterSpacing: 1,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        )),
+                                  ]))),
+                              Positioned(
+                                  left: 15,
+                                  bottom: 20,
+                                  child: Text.rich(TextSpan(children: [
+                                    WidgetSpan(
+                                      child: Image.asset(
+                                          width: 20,
+                                          height: 20,
+                                          "images/distance2.png"),
+                                    ),
+                                    TextSpan(
+                                        text: '\t5 miles ',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                              color: Color(0XFF333333),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              wordSpacing: 1),
+                                        )),
+                                    TextSpan(
+                                        text: 'drive',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                              color: Color(0XFF777777),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              wordSpacing: 1),
+                                        )),
+                                  ]))),
+                              Positioned(
+                                right: 20,
+                                bottom: 20,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  onHover: (isHover) {},
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(isHover
+                                            ? Colors.pink
+                                            : Color.fromARGB(
+                                                255, 248, 248, 248)),
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(25)),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        side: BorderSide(
+                                            width: 1,
+                                            color: isHover
+                                                ? Colors.pink
+                                                : Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "Book Now",
+                                    style: TextStyle(
+                                        color: isHover
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
+                    ),
+                    SizedBox(width: 20),
+                    InkWell(
+                      onTap: () {},
+                      child: MouseRegion(
+                        onHover: (f) {
+                          setState(() {
+                            isHover = true;
+                          });
+                        },
+                        onExit: (f) {
+                          setState(() {
+                            isHover = false;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: isHover ? Colors.pink : Colors.grey),
+                          ),
+                          duration: Duration(milliseconds: 600),
+                          width: isHover ? 350 : 350,
+                          height: isHover ? 430 : 430,
+                          child: Stack(
+                            children: [
+                              Container(
+                                  width: 350,
+                                  height: 430,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color.fromARGB(255, 230, 224, 224),
+                                  )),
+                              Container(
+                                width: 350,
+                                height: 210,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  image: DecorationImage(
+                                      alignment: Alignment.topCenter,
+                                      image: AssetImage(
+                                        "images/banner1.png",
+                                      ),
+                                      fit: BoxFit.fitWidth),
+                                ),
+                              ),
+                              Positioned(
+                                left: 20,
+                                top: 230,
+                                child: Row(
+                                  children: [
+                                    Positioned(
+                                      child: CircleAvatar(
+                                        radius: 25,
+                                        backgroundImage:
+                                            AssetImage("images/customer1.png"),
+                                      ),
+                                    ),
+                                    SizedBox(width: 20),
+                                    Positioned(
+                                      child: Text.rich(TextSpan(children: [
+                                        TextSpan(
+                                            text: 'Lathersalonaspen\n',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  wordSpacing: 10,
+                                                  letterSpacing: 1),
+                                            )),
+                                        WidgetSpan(
+                                          alignment:
+                                              PlaceholderAlignment.middle,
+                                          child: RatingBar.builder(
+                                              itemSize: 25,
+                                              minRating: 1,
+                                              itemCount: 1,
+                                              itemBuilder: (context, _) => Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber),
+                                              onRatingUpdate: (rating) =>
+                                                  setState(() {
+                                                    this.rating = rating;
+                                                  })),
+                                        ),
+                                        TextSpan(
+                                            text: '4.5',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  letterSpacing: 1),
+                                            )),
+                                        TextSpan(
+                                            text: '\t(1200)',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15, wordSpacing: 1),
+                                            )),
+                                      ])),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                  right: 25,
+                                  bottom: 75,
+                                  child: Text.rich(TextSpan(children: [
+                                    TextSpan(
+                                        text:
+                                            'Lorem Ipsum is simply dummy text\nof '
+                                            'the printing  typesetting industry.\n',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                            letterSpacing: 1,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        )),
+                                  ]))),
+                              Positioned(
+                                  left: 15,
+                                  bottom: 20,
+                                  child: Text.rich(TextSpan(children: [
+                                    WidgetSpan(
+                                      child: Image.asset(
+                                          width: 20,
+                                          height: 20,
+                                          "images/distance2.png"),
+                                    ),
+                                    TextSpan(
+                                        text: '\t5 miles ',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                              color: Color(0XFF333333),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              wordSpacing: 1),
+                                        )),
+                                    TextSpan(
+                                        text: 'drive',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                              color: Color(0XFF777777),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              wordSpacing: 1),
+                                        )),
+                                  ]))),
+                              Positioned(
+                                right: 20,
+                                bottom: 20,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  onHover: (isHover) {},
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(isHover
+                                            ? Colors.pink
+                                            : Color.fromARGB(
+                                                255, 248, 248, 248)),
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(25)),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        side: BorderSide(
+                                            width: 1,
+                                            color: isHover
+                                                ? Colors.pink
+                                                : Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "Book Now",
+                                    style: TextStyle(
+                                        color: isHover
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 20),
+                    InkWell(
+                      onTap: () {},
+                      child: MouseRegion(
+                        onHover: (f) {
+                          setState(() {
+                            isHover = true;
+                          });
+                        },
+                        onExit: (f) {
+                          setState(() {
+                            isHover = false;
+                          });
+                        },
+                        child: AnimatedContainer(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                                color: isHover ? Colors.pink : Colors.grey),
+                          ),
+                          duration: Duration(milliseconds: 600),
+                          width: isHover ? 350 : 350,
+                          height: isHover ? 430 : 430,
+                          child: Stack(
+                            children: [
+                              Container(
+                                  width: 350,
+                                  height: 430,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Color.fromARGB(255, 230, 224, 224),
+                                  )),
+                              Container(
+                                width: 350,
+                                height: 210,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      topRight: Radius.circular(10)),
+                                  image: DecorationImage(
+                                      alignment: Alignment.topCenter,
+                                      image: AssetImage(
+                                        "images/banner1.png",
+                                      ),
+                                      fit: BoxFit.fitWidth),
+                                ),
+                              ),
+                              Positioned(
+                                left: 20,
+                                top: 230,
+                                child: Row(
+                                  children: [
+                                    Positioned(
+                                      child: CircleAvatar(
+                                        radius: 25,
+                                        backgroundImage:
+                                            AssetImage("images/customer1.png"),
+                                      ),
+                                    ),
+                                    SizedBox(width: 20),
+                                    Positioned(
+                                      child: Text.rich(TextSpan(children: [
+                                        TextSpan(
+                                            text: 'Lathersalonaspen\n',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  wordSpacing: 10,
+                                                  letterSpacing: 1),
+                                            )),
+                                        WidgetSpan(
+                                          alignment:
+                                              PlaceholderAlignment.middle,
+                                          child: RatingBar.builder(
+                                              itemSize: 25,
+                                              minRating: 1,
+                                              itemCount: 1,
+                                              itemBuilder: (context, _) => Icon(
+                                                  Icons.star,
+                                                  color: Colors.amber),
+                                              onRatingUpdate: (rating) =>
+                                                  setState(() {
+                                                    this.rating = rating;
+                                                  })),
+                                        ),
+                                        TextSpan(
+                                            text: '4.5',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w700,
+                                                  letterSpacing: 1),
+                                            )),
+                                        TextSpan(
+                                            text: '\t(1200)',
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 15, wordSpacing: 1),
+                                            )),
+                                      ])),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Positioned(
+                                  right: 25,
+                                  bottom: 75,
+                                  child: Text.rich(TextSpan(children: [
+                                    TextSpan(
+                                        text:
+                                            'Lorem Ipsum is simply dummy text\nof '
+                                            'the printing  typesetting industry.\n',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                            letterSpacing: 1,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        )),
+                                  ]))),
+                              Positioned(
+                                  left: 15,
+                                  bottom: 20,
+                                  child: Text.rich(TextSpan(children: [
+                                    WidgetSpan(
+                                      child: Image.asset(
+                                          width: 20,
+                                          height: 20,
+                                          "images/distance2.png"),
+                                    ),
+                                    TextSpan(
+                                        text: '\t5 miles ',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                              color: Color(0XFF333333),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              wordSpacing: 1),
+                                        )),
+                                    TextSpan(
+                                        text: 'drive',
+                                        style: GoogleFonts.mulish(
+                                          textStyle: TextStyle(
+                                              color: Color(0XFF777777),
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w600,
+                                              wordSpacing: 1),
+                                        )),
+                                  ]))),
+                              Positioned(
+                                right: 20,
+                                bottom: 20,
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  onHover: (isHover) {},
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(isHover
+                                            ? Colors.pink
+                                            : Color.fromARGB(
+                                                255, 248, 248, 248)),
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(25)),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0),
+                                        side: BorderSide(
+                                            width: 1,
+                                            color: isHover
+                                                ? Colors.pink
+                                                : Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "Book Now",
+                                    style: TextStyle(
+                                        color: isHover
+                                            ? Colors.white
+                                            : Colors.black),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                SizedBox(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          margin: const EdgeInsets.all(30.0),
-                          decoration: BoxDecoration(border: Border.all()),
-                          padding: EdgeInsets.all(50),
-                          child: Image.asset(
-                            "images/homepage.png",
-                            width: 50,
-                            height: 50,
-                          )),
-                      Container(
-                          margin: const EdgeInsets.all(30.0),
-                          decoration: BoxDecoration(border: Border.all()),
-                          padding: EdgeInsets.all(50),
-                          child: Image.asset(
-                            "images/homepage.png",
-                            width: 50,
-                            height: 50,
-                          )),
-                      Container(
-                          margin: const EdgeInsets.all(30.0),
-                          decoration: BoxDecoration(border: Border.all()),
-                          padding: EdgeInsets.all(50),
-                          child: Image.asset(
-                            "images/homepage.png",
-                            width: 50,
-                            height: 50,
-                          )),
-                      Container(
-                          margin: const EdgeInsets.all(30.0),
-                          decoration: BoxDecoration(border: Border.all()),
-                          padding: EdgeInsets.all(50),
-                          child: Image.asset(
-                            "images/homepage.png",
-                            width: 50,
-                            height: 50,
-                          )),
-                    ],
-                  ),
+                SizedBox(height: 30),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: Text.rich(TextSpan(children: [
+                        TextSpan(
+                            text: 'Lathersalonaspen\n',
+                            style: GoogleFonts.mulish(
+                              textStyle: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                  wordSpacing: 10,
+                                  letterSpacing: 1),
+                            )),
+                      ])),
+                    ),
+                  ],
                 ),
               ],
             ),
