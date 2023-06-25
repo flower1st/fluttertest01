@@ -40,6 +40,7 @@ dependencies:
   hover: ^0.4.0 
   google_fonts: ^5.1.0
   flutter_rating_bar: ^4.0.1
+  url_launcher:
 
 dev_dependencies:
   flutter_test:
