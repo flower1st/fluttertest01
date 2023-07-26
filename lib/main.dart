@@ -736,20 +736,280 @@ class _MyHomePageState extends State<MyHomePage> {
                     Stack(children: [
                       Container(
                         width: 1500,
-                        height: 300,
+                        height: 320,
                         decoration: BoxDecoration(
                             color: Color(0XFFFCEDF2),
                             borderRadius: BorderRadius.circular(25)),
                       ),
                       Image(
                           width: 1050,
-                          height: 300,
+                          height: 320,
                           fit: BoxFit.fill,
-                          image: AssetImage("images/vector-logo.png"))
-                    ])
+                          image: AssetImage("images/vector-logo.png")),
+                      Positioned(
+                        bottom: 1,
+                        child: Image(
+                            width: 220,
+                            height: 180,
+                            fit: BoxFit.fill,
+                            image: AssetImage("images/Vectorbanner1.png")),
+                      ),
+                      Positioned(
+                        top: 0,
+                        left: 445,
+                        child: Image(
+                            width: 300,
+                            height: 200,
+                            fit: BoxFit.fill,
+                            image: AssetImage("images/Vectorbanner2.png")),
+                      ),
+                      Positioned(
+                        left: 80,
+                        top: 70,
+                        child: Text.rich(TextSpan(children: [
+                          TextSpan(
+                              text: 'Are you a Salon Owner?\n',
+                              style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white),
+                              )),
+                          WidgetSpan(child: SizedBox(height: 50)),
+                          TextSpan(
+                              text:
+                                  "Lorem Ipsum is simply dummy text of the printing\n"
+                                  "and typesetting industry. Lorem Ipsum has been the\n"
+                                  "industry's standard dummy",
+                              style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                  color: Colors.white,
+                                  height: 1.4,
+                                  fontSize: 25,
+                                ),
+                              )),
+                        ])),
+                      ),
+                      Positioned(
+                        top: 125,
+                        right: 90,
+                        width: 270,
+                        height: 70,
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          onHover: (isHover) {},
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Color(0XFFD3427A)),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.all(20)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40.0),
+                                side: BorderSide(
+                                    width: 2, color: Color(0XFFD3427A)),
+                              ),
+                            ),
+                          ),
+                          child: Text(
+                            "List Your Salon",
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
                   ],
                 ),
-                SizedBox(height: 100),
+                SizedBox(height: 60),
+                Container(
+                  width: double.infinity,
+                  height: 400,
+                  decoration: BoxDecoration(color: Color(0XFFF7F7F7)),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text.rich(TextSpan(children: [
+                          TextSpan(
+                              text: 'Quick Links\n',
+                              style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0XFF333333)),
+                              )),
+                          WidgetSpan(child: SizedBox(height: 80)),
+                          TextSpan(
+                              text: "About\n\n"
+                                  "Services\n\n"
+                                  "Salon Owner\n",
+                              style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                  color: Color(0XFF7777777),
+                                  height: 1.4,
+                                  fontSize: 25,
+                                ),
+                              )),
+                        ])),
+                        Text.rich(TextSpan(children: [
+                          TextSpan(
+                              text: 'Information\n',
+                              style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0XFF333333)),
+                              )),
+                          WidgetSpan(child: SizedBox(height: 80)),
+                          TextSpan(
+                              text: "Testimonials\n\n"
+                                  "Contact Us\n\n"
+                                  "Help\n",
+                              style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                  color: Color(0XFF7777777),
+                                  height: 1.4,
+                                  fontSize: 25,
+                                ),
+                              )),
+                        ])),
+                        Text.rich(TextSpan(children: [
+                          TextSpan(
+                              text: 'nail360\n',
+                              style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0XFF333333)),
+                              )),
+                          WidgetSpan(child: SizedBox(height: 80)),
+                          TextSpan(
+                              text: "Terms and Conditions\n\n"
+                                  "Refund Policy\n\n"
+                                  "Privacy\n",
+                              style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                  color: Color(0XFF7777777),
+                                  height: 1.4,
+                                  fontSize: 25,
+                                ),
+                              )),
+                        ])),
+                        Text.rich(TextSpan(children: [
+                          TextSpan(
+                              text: 'Contact Us\n',
+                              style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0XFF333333)),
+                              )),
+                          WidgetSpan(child: SizedBox(height: 80)),
+                          TextSpan(
+                              text: "12345 Little Lonsdale St,\n"
+                                  "Melbourne\n\n"
+                                  "Phone: (123) 123-456\n\n"
+                                  "E-Mail: office@nail360.com\n",
+                              style: GoogleFonts.mulish(
+                                textStyle: TextStyle(
+                                  color: Color(0XFF7777777),
+                                  height: 1.4,
+                                  fontSize: 25,
+                                ),
+                              )),
+                        ])),
+                      ]),
+                ),
+                Divider(
+                  height: 10,
+                  thickness: 5,
+                  indent: 0,
+                  endIndent: 0,
+                  color: Color(0XFFEAE5E5),
+                ),
+                Container(
+                    width: 1500,
+                    height: 100,
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                              "Copyright © 2023 nail360.com. All rights reserved."),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              InkWell(
+                                  onTap: () {},
+                                  hoverColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  child: Image(
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.cover,
+                                      image: AssetImage("images/fbfb.png"))),
+                              SizedBox(width: 20),
+                              InkWell(
+                                  onTap: () {},
+                                  hoverColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  child: Image(
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.cover,
+                                      image: AssetImage("images/insins.png"))),
+                              SizedBox(width: 20),
+                              InkWell(
+                                  onTap: () {},
+                                  hoverColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  child: Image(
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.cover,
+                                      image: AssetImage(
+                                          "images/twittertwitter.png"))),
+                              SizedBox(width: 20),
+                              InkWell(
+                                  onTap: () {},
+                                  hoverColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  child: Image(
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.cover,
+                                      image: AssetImage("images/ininin.png"))),
+                              SizedBox(width: 20),
+                              InkWell(
+                                  onTap: () {},
+                                  hoverColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  child: Image(
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.cover,
+                                      image: AssetImage("images/goldold.png"))),
+                              SizedBox(width: 20),
+                              InkWell(
+                                  onTap: () {},
+                                  hoverColor: Colors.transparent,
+                                  splashColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  child: Image(
+                                      width: 50,
+                                      height: 50,
+                                      fit: BoxFit.cover,
+                                      image: AssetImage("images/ytyt.png"))),
+                            ],
+                          ),
+                        ])),
               ],
             ),
           ),

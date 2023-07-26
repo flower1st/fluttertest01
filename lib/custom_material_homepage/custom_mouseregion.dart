@@ -1,9 +1,14 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:homepage/custom_material_homepage/custom_client_image.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import '../models/TopRated.dart';
 
 class CustomMouseRegion extends StatefulWidget {
   final String path;
@@ -12,10 +17,56 @@ class CustomMouseRegion extends StatefulWidget {
   State<CustomMouseRegion> createState() => _CustomMouseRegion();
 }
 
+String? stringResponse;
+Map? mapResponse;
+Map? dataResponse;
+Data? toprated;
+
 class _CustomMouseRegion extends State<CustomMouseRegion> {
+  Future topRated() async {
+    http.Response response;
+    response = await http
+        .get(Uri.parse("https://dev.nail360.info/light/api/public?s=TopRated"));
+    if (response.statusCode == 200) {
+      setState(() {
+        //stringResponse = response.body;
+        mapResponse = json.decode(response.body);
+        dataResponse = mapResponse?['data'];
+      });
+    }
+  }
+
+  void fetchTopRated() async {
+    const url = 'https://dev.nail360.info/light/api/public?s=TopRated';
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
+    final body = response.body;
+    final json = jsonDecode(body);
+    final results = json['result'] as List<dynamic>;
+    final transformed = results.map((e) {
+      return Data(
+        description: e['description'],
+        imageurl: e['image'],
+        name: e['name'],
+        reviewnumber: e['review'],
+        salonavatar: e['avatar'],
+        salonid: e['id'],
+        star: e['stars'],
+      );
+    }).toList();
+    setState(() {
+      toprated = transformed as Data?;
+    });
+  }
+
   bool isHover = false;
   double rating = 4.5;
   @override
+  void initState() {
+    topRated();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return MouseRegion(
       onHover: (f) {
@@ -62,7 +113,7 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
                   Positioned(
                     child: Text.rich(TextSpan(children: [
                       TextSpan(
-                          text: 'Lathersalonaspen\n',
+                          text: toprated?.toString(),
                           style: GoogleFonts.mulish(
                             textStyle: TextStyle(
                                 fontSize: 20,
