@@ -41,6 +41,8 @@ dependencies:
   google_fonts: ^5.1.0
   flutter_rating_bar: ^4.0.1
   url_launcher:
+  http: 
+  json_annotation: 
 
 dev_dependencies:
   flutter_test:

@@ -7,8 +7,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:homepage/custom_material_homepage/custom_client_image.dart';
+
 import 'package:homepage/custom_material_homepage/custom_mouseregion.dart';
+import 'package:homepage/models/TopRated.dart';
+import 'package:http/http.dart' as http;
+
+import 'dart:convert';
 
 void main() {
   runApp(const MyApp());
@@ -35,6 +39,41 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<Data> users = [];
+  @override
+  void initState() {
+    super.initState();
+    fetchSpa();
+  }
+
+  void fetchSpa() async {
+    print('he he he');
+    const url = "https://dev.nail360.info/light/api/public?s=TopRated&z=8";
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
+    final body = response.body;
+    final json = jsonDecode(body);
+    final data = json['data'] as List<dynamic>;
+    final transformed = data.map(
+      (e) {
+        return Data(
+          salonid: e['salonid'],
+          name: e['name'],
+          star: e['star'],
+          description: e['description'],
+          imageurl: e['imageurl'],
+          reviewnumber: e['reviewnumber'],
+          salonavatar: e['salonavatar'],
+        );
+      },
+    ).toList();
+    setState(() {
+      users = transformed;
+    });
+    print('ha ha ha');
+  }
+
+  final int gridColumnCount = 4;
   double rating = 4.5;
   bool isHover = false;
   int currentIndex = 0;
@@ -314,47 +353,40 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
                   children: [
-                    SizedBox(width: 20),
-                    InkWell(
-                        onTap: () {},
-                        child: CustomMouseRegion("images/banner1.png")),
-                    SizedBox(width: 20),
-                    InkWell(
-                        onTap: () {},
-                        child: CustomMouseRegion("images/banner2.png")),
-                    SizedBox(width: 20),
-                    InkWell(
-                        onTap: () {},
-                        child: CustomMouseRegion("images/banner3.jpg")),
-                    SizedBox(width: 20),
-                    InkWell(
-                        onTap: () {},
-                        child: CustomMouseRegion("images/banner4.png")),
-                  ],
-                ),
-                SizedBox(height: 30),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(width: 20),
-                    InkWell(
-                        onTap: () {},
-                        child: CustomMouseRegion("images/banner5.png")),
-                    SizedBox(width: 20),
-                    InkWell(
-                        onTap: () {},
-                        child: CustomMouseRegion("images/banner6.jpg")),
-                    SizedBox(width: 20),
-                    InkWell(
-                        onTap: () {},
-                        child: CustomMouseRegion("images/banner4.png")),
-                    SizedBox(width: 20),
-                    InkWell(
-                        onTap: () {},
-                        child: CustomMouseRegion("images/banner8.png")),
+                    Container(
+                      width: 1600,
+                      height: 850,
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: gridColumnCount,
+                        ),
+                        scrollDirection: Axis.vertical,
+                        itemCount: users.length,
+                        itemBuilder: (context, index) {
+                          final user = users[index];
+                          final name = user.name;
+                          final star = user.star;
+                          final avatar = user.salonavatar;
+                          final description = user.description;
+                          final reviewnumber = user.reviewnumber;
+                          final imgUrl = user.imageurl;
+                          return Column(
+                            children: [
+                              CustomMouseRegion(
+                                name: name.toString(),
+                                star: star.toString(),
+                                avatar: avatar.toString(),
+                                description: description.toString(),
+                                reviewNumber: reviewnumber!,
+                                imgUrl: imgUrl.toString(),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
                   ],
                 ),
                 SizedBox(height: 30),
