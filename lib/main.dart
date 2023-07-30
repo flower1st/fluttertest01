@@ -14,6 +14,8 @@ import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 
+import 'models/Carousel.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -40,10 +42,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<Data> users = [];
+  List<DataImage> imagePaths = [];
   @override
   void initState() {
     super.initState();
     fetchSpa();
+    fetchCarousesl();
   }
 
   void fetchSpa() async {
@@ -73,17 +77,43 @@ class _MyHomePageState extends State<MyHomePage> {
     print('ha ha ha');
   }
 
+  void fetchCarousesl() async {
+    print('he he he');
+    const url = "https://dev.nail360.info/light/api/public?s=Carouse&z=3";
+    final uri = Uri.parse(url);
+    final response = await http.get(uri);
+    final body = response.body;
+    final json = jsonDecode(body);
+    final data = json['data'] as List<dynamic>;
+    final data2 = json['descriptionjson'] as List<dynamic>;
+    final transformed = data.map(
+      (e) {
+        return DataImage(
+            imageurl: e['imageurl'],
+            id: e['id'],
+            descriptionjson: e['descriptionjson']);
+      },
+    ).toList();
+    final transformed2 = data2.map(
+      (e) {
+        return DataImage(
+            imageurl: e['imageurl'],
+            id: e['id'],
+            descriptionjson: e['descriptionjson']);
+      },
+    ).toList();
+    setState(() {
+      imagePaths = transformed;
+    });
+    print('ha ha ha');
+  }
+
   final int gridColumnCount = 4;
   double rating = 4.5;
   bool isHover = false;
   int currentIndex = 0;
   double sideLength = 50;
-  final List<String> imagePaths = [
-    'images/homepage.png',
-    'images/homepage.png',
-    'images/homepage.png',
-    'images/homepage.png'
-  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -236,8 +266,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             .map((item) => Padding(
                                   padding: const EdgeInsets.only(bottom: 150),
                                   child: Stack(children: [
-                                    Image.asset(
-                                      item,
+                                    Image.network(
+                                      item.imageurl.toString(),
                                       fit: BoxFit.fill,
                                       height: 5000,
                                       width: 5000,
@@ -253,27 +283,23 @@ class _MyHomePageState extends State<MyHomePage> {
                                             fit: BoxFit.contain),
                                       ),
                                     ),
+                                    Positioned(
+                                      width: 700,
+                                      child:
+                                          Text(item.descriptionjson.toString(),
+                                              overflow: TextOverflow.clip,
+                                              style: GoogleFonts.mulish(
+                                                textStyle: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w800,
+                                                ),
+                                              )),
+                                    ),
                                     Padding(
                                       padding: const EdgeInsets.only(
                                           left: 120, top: 200),
                                       child: Text.rich(
                                         TextSpan(children: [
-                                          TextSpan(
-                                              text:
-                                                  'Your Freedom\nto Creativity\n',
-                                              style: GoogleFonts.mulish(
-                                                textStyle: TextStyle(
-                                                    fontSize: 80,
-                                                    fontWeight: FontWeight.w800,
-                                                    wordSpacing: 1),
-                                              )),
-                                          TextSpan(
-                                              text:
-                                                  '                                 ',
-                                              style: GoogleFonts.mulish(
-                                                textStyle:
-                                                    TextStyle(fontSize: 15),
-                                              )),
                                           TextSpan(
                                               text:
                                                   '\nA cross-platform for making salons\nanywhere for all creators!',
@@ -333,26 +359,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             )),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            Center(
-              child: Padding(
-                  padding: EdgeInsets.all(50.0),
-                  child: Text(
-                    'Top Rated Salons Near You',
-                    style: GoogleFonts.mulish(
-                        textStyle: TextStyle(
-                            fontSize: 45, fontWeight: FontWeight.w700)),
-                  )),
-            ),
-          ]),
-        ),
         SliverToBoxAdapter(
           child: SizedBox(
             width: double.infinity,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                Text(
+                  'Top Rated Salons Near You',
+                  style: GoogleFonts.mulish(
+                      textStyle:
+                          TextStyle(fontSize: 45, fontWeight: FontWeight.w700)),
+                ),
                 Column(
                   children: [
                     Container(
@@ -360,7 +378,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 850,
                       child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: gridColumnCount,
+                          crossAxisCount: 4,
+                          crossAxisSpacing: 0,
+                          mainAxisSpacing: 10,
                         ),
                         scrollDirection: Axis.vertical,
                         itemCount: users.length,

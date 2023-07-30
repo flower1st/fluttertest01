@@ -1,7 +1,5 @@
 // ignore_for_file: prefer_const_constructors, use_key_in_widget_constructors
 
-import 'dart:ffi';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -56,13 +54,13 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
               Border.all(width: 2, color: isHover ? Colors.pink : Colors.grey),
         ),
         duration: Duration(milliseconds: 100),
-        width: isHover ? 450 : 450,
+        width: isHover ? 380 : 380,
         height: isHover ? 400 : 400,
         child: Stack(
           children: [
             Container(
                 width: 400,
-                height: 430,
+                height: 330,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Color.fromARGB(255, 255, 255, 255),
@@ -72,57 +70,58 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
               top: 230,
               child: Row(
                 children: [
-                  Positioned(
-                    child: CircleAvatar(
-                      radius: 25,
-                      backgroundImage: NetworkImage(widget.avatar),
-                    ),
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundImage: NetworkImage(widget.avatar),
                   ),
                   SizedBox(width: 20),
-                  Positioned(
-                    child: Text.rich(TextSpan(children: [
-                      TextSpan(
-                          text: widget.name,
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(widget.name,
                           style: GoogleFonts.mulish(
                             textStyle: TextStyle(
-                                fontSize: 15,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          )),
+                      Text.rich(TextSpan(children: [
+                        WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
+                          child: RatingBar.builder(
+                              itemSize: 15,
+                              minRating: 1,
+                              itemCount: 1,
+                              unratedColor: Colors.amber,
+                              itemBuilder: (context, _) =>
+                                  Icon(Icons.star, color: Colors.amber),
+                              onRatingUpdate: (rating) => setState(() {
+                                    this.rating = rating;
+                                  })),
+                        ),
+                        TextSpan(
+                            text: widget.star,
+                            style: GoogleFonts.mulish(
+                              textStyle: TextStyle(
+                                fontSize: 18,
                                 fontWeight: FontWeight.w700,
-                                wordSpacing: 10,
-                                letterSpacing: 1),
-                          )),
-                      WidgetSpan(
-                        alignment: PlaceholderAlignment.middle,
-                        child: RatingBar.builder(
-                            itemSize: 15,
-                            minRating: 1,
-                            itemCount: 1,
-                            itemBuilder: (context, _) =>
-                                Icon(Icons.star, color: Colors.amber),
-                            onRatingUpdate: (rating) => setState(() {
-                                  this.rating = rating;
-                                })),
-                      ),
-                      TextSpan(
-                          text: widget.star,
-                          style: GoogleFonts.mulish(
-                            textStyle: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 1),
-                          )),
-                      TextSpan(
-                          text: '\t(${widget.reviewNumber})',
-                          style: GoogleFonts.mulish(
-                            textStyle: TextStyle(fontSize: 15, wordSpacing: 1),
-                          )),
-                    ])),
+                              ),
+                            )),
+                        TextSpan(
+                            text: '\t(${widget.reviewNumber})',
+                            style: GoogleFonts.mulish(
+                              textStyle: TextStyle(fontSize: 15),
+                            )),
+                      ]))
+                    ],
                   ),
                 ],
               ),
             ),
             Container(
               width: 500,
-              height: 200,
+              height: 220,
               decoration: BoxDecoration(
                 color: Colors.amber,
               ),
@@ -130,19 +129,23 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
                   Image(fit: BoxFit.cover, image: NetworkImage(widget.imgUrl)),
             ),
             Positioned(
-                left: 10,
-                bottom: 75,
-                child: Text.rich(TextSpan(children: [
-                  TextSpan(
-                      text: widget.description,
-                      style: GoogleFonts.mulish(
-                        textStyle: TextStyle(
-                          letterSpacing: 1,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      )),
-                ]))),
+              top: 290,
+              left: 20,
+              width: 350,
+              height: 200,
+              child: Container(
+                child: Text(widget.description,
+                    maxLines: 2,
+                    style: GoogleFonts.mulish(
+                      textStyle: TextStyle(
+                        overflow: TextOverflow.ellipsis,
+                        letterSpacing: 1,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )),
+              ),
+            ),
             Positioned(
                 left: 15,
                 bottom: 20,
@@ -171,6 +174,15 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
                       )),
                 ]))),
             Positioned(
+                right: 10,
+                top: 10,
+                child: InkWell(
+                    onTap: () {},
+                    child: Icon(
+                      Icons.favorite,
+                      color: Color(0xff333333),
+                    ))),
+            Positioned(
               right: 20,
               bottom: 20,
               child: ElevatedButton(
@@ -180,8 +192,7 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
                   backgroundColor: MaterialStateProperty.all<Color>(isHover
                       ? Colors.pink
                       : Color.fromARGB(255, 248, 248, 248)),
-                  padding:
-                      MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(25)),
+                  fixedSize: MaterialStateProperty.all(Size(150, 40)),
                   shape: MaterialStateProperty.all(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30.0),
@@ -193,8 +204,9 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
                 ),
                 child: Text(
                   "Book Now",
-                  style:
-                      TextStyle(color: isHover ? Colors.white : Colors.black),
+                  style: TextStyle(
+                      color: isHover ? Colors.white : Colors.black,
+                      fontSize: 18),
                 ),
               ),
             ),
