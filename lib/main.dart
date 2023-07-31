@@ -85,7 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
     final body = response.body;
     final json = jsonDecode(body);
     final data = json['data'] as List<dynamic>;
-    final data2 = json['descriptionjson'] as List<dynamic>;
     final transformed = data.map(
       (e) {
         return DataImage(
@@ -94,14 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
             descriptionjson: e['descriptionjson']);
       },
     ).toList();
-    final transformed2 = data2.map(
-      (e) {
-        return DataImage(
-            imageurl: e['imageurl'],
-            id: e['id'],
-            descriptionjson: e['descriptionjson']);
-      },
-    ).toList();
+
     setState(() {
       imagePaths = transformed;
     });
@@ -119,246 +111,280 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         body: CustomScrollView(
       slivers: [
-        SliverAppBar(
-            actions: [],
-            toolbarHeight: 950,
-            flexibleSpace: Container(
-                decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0XFF1E1E1E), Color(0XFF5E5E5E)]),
-            )),
-            floating: true,
-            title: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 380, top: 100),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        "images/logo.png",
-                        alignment: Alignment.centerRight,
-                        width: 200,
-                        height: 200,
-                      ),
-                      SizedBox(width: 20),
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50.0),
-                            color: Color.fromARGB(255, 255, 255, 255)),
-                        width: 516,
-                        height: 50,
-                        child: Row(
-                          children: <Widget>[
-                            new Flexible(
-                              child: new TextField(
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none),
-                                      hintText: 'Search by name',
-                                      contentPadding: EdgeInsets.all(20))),
-                            ),
-                            const VerticalDivider(
-                                width: 20,
-                                thickness: 1,
-                                indent: 10,
-                                endIndent: 10,
-                                color: Colors.grey),
-                            new Flexible(
-                              child: new TextField(
-                                  decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.location_pin),
-                                      border: OutlineInputBorder(
-                                          borderSide: BorderSide.none),
-                                      hintText: 'Search for something',
-                                      contentPadding:
-                                          EdgeInsets.only(left: 50))),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: CircleAvatar(
-                                radius: 25,
-                                backgroundColor:
-                                    Color(0XFFD3427A), //<-- SEE HERE
-                                child: IconButton(
-                                  iconSize: 35,
-                                  icon: Icon(
-                                    Icons.search,
-                                    color: Colors.white,
-                                  ),
-                                  onPressed: () {},
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      SizedBox(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Color(0XFFD3427A)),
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.all(26)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                side: BorderSide(
-                                    width: 3, color: Color(0XFFD3427A)),
-                              ),
-                            ),
-                          ),
-                          child: Text("For Bussiness"),
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      SizedBox(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.white),
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.all(26)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                              ),
-                            ),
-                          ),
-                          child: Text(
-                            "Log In",
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      SizedBox(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(
-                                Color(0XFFD3427A)),
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.all(26)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0),
-                                side: BorderSide(
-                                    width: 3, color: Color(0XFFD3427A)),
-                              ),
-                            ),
-                          ),
-                          child: Text("Sign Up"),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Stack(
-                  children: <Widget>[
-                    CarouselSlider(
-                        items: imagePaths
-                            .map((item) => Padding(
-                                  padding: const EdgeInsets.only(bottom: 150),
-                                  child: Stack(children: [
-                                    Image.network(
-                                      item.imageurl.toString(),
-                                      fit: BoxFit.fill,
-                                      height: 5000,
-                                      width: 5000,
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 50, top: 40, bottom: 10),
-                                      child: Container(
-                                        constraints: BoxConstraints(
-                                            minHeight: 275, minWidth: 550),
-                                        child: Image.asset(
-                                            "images/vectorhalf.png",
-                                            fit: BoxFit.contain),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      width: 700,
-                                      child:
-                                          Text(item.descriptionjson.toString(),
-                                              overflow: TextOverflow.clip,
-                                              style: GoogleFonts.mulish(
-                                                textStyle: TextStyle(
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w800,
-                                                ),
-                                              )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 120, top: 200),
-                                      child: Text.rich(
-                                        TextSpan(children: [
-                                          TextSpan(
-                                              text:
-                                                  '\nA cross-platform for making salons\nanywhere for all creators!',
-                                              style: GoogleFonts.mulish(
-                                                textStyle: TextStyle(
-                                                    fontSize: 30,
-                                                    wordSpacing: 1.5,
-                                                    letterSpacing: 1),
-                                              )),
-                                        ]),
-                                      ),
-                                    ),
-                                  ]),
-                                ))
-                            .toList(),
-                        options: CarouselOptions(
-                            height: 900,
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                print(reason.toString());
-                                currentIndex = index;
-                              });
-                            },
-                            autoPlay: true,
-                            aspectRatio: 2.0,
-                            enlargeCenterPage: true,
-                            viewportFraction: 0.9)),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 700),
+        SliverToBoxAdapter(
+            child: Stack(children: [
+          Container(
+              width: double.maxFinite,
+              height: 1000,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0XFF1E1E1E), Color(0XFF5E5E5E)]),
+              )),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 380),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      "images/logo.png",
+                      alignment: Alignment.centerRight,
+                      width: 200,
+                      height: 200,
+                    ),
+                    SizedBox(width: 20),
+                    Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.0),
+                          color: Color.fromARGB(255, 255, 255, 255)),
+                      width: 516,
+                      height: 50,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (int i = 0; i < imagePaths.length; i++)
-                            Container(
-                              height: 13,
-                              width: 13,
-                              margin: EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  color: currentIndex == i
-                                      ? Color(0XFFD3427A)
-                                      : Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                        spreadRadius: 1,
-                                        blurRadius: 3,
-                                        offset: Offset(2, 2))
-                                  ]),
-                            )
+                        children: <Widget>[
+                          new Flexible(
+                            child: new TextField(
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none),
+                                    hintText: 'Search by name',
+                                    contentPadding: EdgeInsets.all(20))),
+                          ),
+                          const VerticalDivider(
+                              width: 20,
+                              thickness: 1,
+                              indent: 10,
+                              endIndent: 10,
+                              color: Colors.grey),
+                          new Flexible(
+                            child: new TextField(
+                                decoration: InputDecoration(
+                                    prefixIcon: Icon(Icons.location_pin),
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide.none),
+                                    hintText: 'Search for something',
+                                    contentPadding: EdgeInsets.only(left: 50))),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: CircleAvatar(
+                              radius: 25,
+                              backgroundColor: Color(0XFFD3427A), //<-- SEE HERE
+                              child: IconButton(
+                                iconSize: 35,
+                                icon: Icon(
+                                  Icons.search,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(left: 175, top: 200),
+                    SizedBox(width: 20),
+                    SizedBox(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Color(0XFFD3427A)),
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              EdgeInsets.all(26)),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              side: BorderSide(
+                                  width: 3, color: Color(0XFFD3427A)),
+                            ),
+                          ),
+                        ),
+                        child: Text("For Bussiness"),
+                      ),
+                    ),
+                    SizedBox(width: 20),
+                    SizedBox(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              EdgeInsets.all(26)),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                          ),
+                        ),
+                        child: Text(
+                          "Log In",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 20),
+                    SizedBox(
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color(0XFFD3427A)),
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              EdgeInsets.all(26)),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                              side: BorderSide(
+                                  width: 3, color: Color(0XFFD3427A)),
+                            ),
+                          ),
+                        ),
+                        child: Text("Sign Up"),
+                      ),
                     ),
                   ],
                 ),
-              ],
-            )),
+              ),
+              Stack(
+                children: <Widget>[
+                  CarouselSlider(
+                      items: imagePaths
+                          .map((item) => Stack(children: [
+                                Container(
+                                  height: 750,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(300)),
+                                  child: Image.network(
+                                    item.imageurl.toString(),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 50, top: 40, bottom: 10),
+                                  child: Container(
+                                    width: 200,
+                                    height: 690,
+                                    constraints: BoxConstraints(
+                                        minHeight: 215, minWidth: 550),
+                                    child: Image.asset("images/vectorhalf.png",
+                                        fit: BoxFit.fill),
+                                  ),
+                                ),
+                                Positioned(
+                                  width: 580,
+                                  left: 150,
+                                  top: 250,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                            textDirection: TextDirection.rtl,
+                                            textAlign: TextAlign.end,
+                                            item.descriptionjson!
+                                                .replaceAll("font", "")
+                                                .replaceAll("name", "")
+                                                .replaceAll("Arial", "")
+                                                .replaceAll("size", "")
+                                                .replaceAll("20", "")
+                                                .replaceAll("text", "")
+                                                .replaceAll("14", "")
+                                                .replaceAll("{", "")
+                                                .replaceAll("\"", "")
+                                                .replaceAll("]", "")
+                                                .replaceAll("[", "")
+                                                .replaceAll(":", "")
+                                                .replaceAll(",", "")
+                                                .replaceAll("}", " ")
+                                                .substring(0, 40)
+                                                .toString(),
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.mulish(
+                                              textStyle: TextStyle(
+                                                  fontSize: 60,
+                                                  fontWeight: FontWeight.w800,
+                                                  color: Colors.white),
+                                            )),
+                                      ),
+                                      Text(
+                                          textDirection: TextDirection.rtl,
+                                          textAlign: TextAlign.end,
+                                          item.descriptionjson!
+                                              .replaceAll("font", "")
+                                              .replaceAll("name", "")
+                                              .replaceAll("Arial", "")
+                                              .replaceAll("size", "")
+                                              .replaceAll("20", "")
+                                              .replaceAll("text", "")
+                                              .replaceAll("14", "")
+                                              .replaceAll("{", "")
+                                              .replaceAll("\"", "")
+                                              .replaceAll("]", "")
+                                              .replaceAll("[", "")
+                                              .replaceAll(":", "")
+                                              .replaceAll(",", "")
+                                              .replaceAll("}", " ")
+                                              .substring(40, 103)
+                                              .toString(),
+                                          maxLines: 3,
+                                          style: GoogleFonts.mulish(
+                                            textStyle: TextStyle(
+                                                fontSize: 30,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.white),
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                              ]))
+                          .toList(),
+                      options: CarouselOptions(
+                          height: 900,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              print(reason.toString());
+                              currentIndex = index;
+                            });
+                          },
+                          autoPlay: true,
+                          aspectRatio: 2.0,
+                          enlargeCenterPage: true,
+                          viewportFraction: 0.9)),
+                  Positioned(
+                    bottom: 110,
+                    left: 920,
+                    child: Row(
+                      children: [
+                        for (int i = 0; i < imagePaths.length; i++)
+                          Container(
+                            height: 13,
+                            width: 13,
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: currentIndex == i
+                                    ? Color(0XFFD3427A)
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                boxShadow: [
+                                  BoxShadow(
+                                      spreadRadius: 1,
+                                      blurRadius: 3,
+                                      offset: Offset(2, 2))
+                                ]),
+                          )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ])),
         SliverToBoxAdapter(
           child: SizedBox(
             width: double.infinity,
@@ -371,6 +397,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       textStyle:
                           TextStyle(fontSize: 45, fontWeight: FontWeight.w700)),
                 ),
+                SizedBox(height: 20),
                 Column(
                   children: [
                     Container(

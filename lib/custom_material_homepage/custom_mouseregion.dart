@@ -29,6 +29,7 @@ class CustomMouseRegion extends StatefulWidget {
 
 class _CustomMouseRegion extends State<CustomMouseRegion> {
   bool isHover = false;
+  bool isClicked = false;
   double rating = 4.5;
   @override
   void initState() {
@@ -122,9 +123,6 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
             Container(
               width: 500,
               height: 220,
-              decoration: BoxDecoration(
-                color: Colors.amber,
-              ),
               child:
                   Image(fit: BoxFit.cover, image: NetworkImage(widget.imgUrl)),
             ),
@@ -177,10 +175,12 @@ class _CustomMouseRegion extends State<CustomMouseRegion> {
                 right: 10,
                 top: 10,
                 child: InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      isClicked = !isClicked;
+                    },
                     child: Icon(
                       Icons.favorite,
-                      color: Color(0xff333333),
+                      color: isClicked ? Colors.pink : Color(0xff333333),
                     ))),
             Positioned(
               right: 20,
